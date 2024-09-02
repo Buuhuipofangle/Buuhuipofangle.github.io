@@ -2,13 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Element UI 示例</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-plus"></script>
 </head>
 <body>
-    <div class="box">
-        aaa
+    <div id="app">
+        <el-input type="number" v-model="numberValue"></el-input>
     </div>
+    <script>
+        const { createApp } = Vue;
+        const app = createApp({
+            data() {
+                return {
+                    numberValue: 0,
+                    textarea1: '',
+                    message: 'Hello Element UI!'
+                };
+            }
+        });
+        app.use(ElementPlus);
+        app.mount('#app');
+    </script>
 </body>
 </html>
