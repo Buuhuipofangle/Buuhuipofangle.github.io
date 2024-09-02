@@ -9,14 +9,13 @@
 </head>
 <body>
     <div id="app">
-        <el-input type="number" v-model="numberValue"></el-input>
+        <el-input style="width: auto; height: 200px;" type="number" v-model="numberValue"></el-input>
     </div>
     <script>
         const { createApp } = Vue;
         const app = createApp({
             data() {
                 return {
-                    numberValue: 0,
                     textarea1: '',
                     message: 'Hello Element UI!'
                 };
