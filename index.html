@@ -2,13 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Element</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Element UI </title>
     <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-plus"></script>
 </head>
 <body>
     <div id="app">
-        {{message}}
+        <el-input type="number" v-model="numberValue"></el-input>
     </div>
     <script>
         const { createApp } = Vue;
@@ -20,6 +22,7 @@
                 };
             }
         });
+        app.use(ElementPlus);
         app.mount('#app');
     </script>
 </body>
