@@ -2,7 +2,12 @@ var _info = {}
 var _daily_arr = []
 var _tea = 3421
 var _sales = 4000
-
+test()
+function test(){
+    const a = "今日业绩： "
+    console.log(a.split("：")[1].trim() === "");
+    
+}
 function excuse(sales,tea,daily){
     init(sales,tea,daily)
     handleDaily()
@@ -49,14 +54,16 @@ function handleDiary(){
 }
 function get_value(index){
     const flag = _daily_arr[index].includes(":") ? ":" : "：";
-    return _daily_arr[index].split(flag)[1];
+    const a = _daily_arr[index].split(flag)[1]
+    if(a.trim() === ""){
+        return 0;
+    }else{
+        return _daily_arr[index].split(flag)[1];
+    }
 }
 function set_value(index,value){
     const text = _daily_arr[index]
     const flag = text.includes(":") ? ":" : "：";
-    if(index === 9){
-
-    }
     _daily_arr[index] = text.split(flag)[0] + flag + value;
 }
 function get_date(){
