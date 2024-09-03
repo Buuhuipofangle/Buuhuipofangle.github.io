@@ -2,12 +2,6 @@ var _info = {}
 var _daily_arr = []
 var _tea = 3421
 var _sales = 4000
-test()
-function test(){
-    const a = "今日业绩： "
-    console.log(a.split("：")[1].trim() === "");
-    
-}
 function excuse(sales,tea,daily){
     init(sales,tea,daily)
     handleDaily()
@@ -60,6 +54,7 @@ function get_value(index){
     }else{
         return _daily_arr[index].split(flag)[1];
     }
+    
 }
 function set_value(index,value){
     const text = _daily_arr[index]
