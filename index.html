@@ -43,6 +43,15 @@
                     </div>
                 </div>
             </transition>
+
+            <transition name="bounce">
+                <div v-show="boardshow" class="container">
+                    <div class="container">
+                        <p>剪切板</p>
+                        <el-input autosize type="textarea" v-model="board" style="width: 30vh;"/>
+                    </div>
+                </div>
+            </transition>
         </div>
     </div>
     <script>
@@ -53,9 +62,11 @@
                     show:true,
                     teashow:false,
                     dailyshow:false,
+                    boardshow:false,
                     revenue:null,
                     tea:null,
                     daily:null,
+                    board:null,
                     arr:[]
                 };
             },
@@ -84,9 +95,27 @@
                 },
                 onchange(){
                     if(this.daily != null && this.daily.length > 100){
-                        excuse(this.revenue,this.tea,this.daily);
+                        this.copyToClipboard(excuse(this.revenue,this.tea,this.daily));
                     }
                 },
+                async  copyToClipboard(text) {
+                    this.dailyshow = false
+                    this.board = text
+                    this.boardshow = true
+                    try {
+                        await navigator.clipboard.writeText(text);
+                        this.$message({
+                            message: '复制成功',
+                            type: 'success'
+                        });
+                    } catch (err) {
+                        this.
+                        this.$message({
+                            message: '已经将内容拷贝到剪切板，请手动复制',
+                            type: 'warning'
+                        });
+                    }
+                }
             }
         });
         app.use(ElementPlus);
