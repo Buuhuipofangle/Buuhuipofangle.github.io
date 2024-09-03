@@ -95,10 +95,6 @@ function init(sales,tea,daily){
     _tea = tea
     _daily_arr = daily.split("\n");
 
-    if(_daily_arr.length != 24){
-        alert("格式过期 可能无法正确解析")
-    }
-
     _info = {
         date:2,
 
