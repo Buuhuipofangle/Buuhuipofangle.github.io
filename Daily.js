@@ -171,6 +171,3 @@ class Daily{
     }
 }
 
-let test = new Daily(4000,241,null)
-console.log(test.get_result());
-
