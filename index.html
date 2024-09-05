@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <script src="https://unpkg.com/element-plus"></script>
     <link rel="stylesheet" href="style.css">
+    <script sr="Daily.js"></script>
     <script src="script.js"></script>
 </head>
 <body>
@@ -95,6 +96,8 @@
                 },
                 onchange(){
                     if(this.daily != null && this.daily.length > 100){
+                        let daily = new Daily(this.revenue,this.tea,this.daily);
+                        console.log(daily.get_result());
                         this.copyToClipboard(excuse(this.revenue,this.tea,this.daily));
                     }
                 },
