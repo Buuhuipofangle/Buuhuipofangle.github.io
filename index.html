@@ -9,7 +9,6 @@
     <script src="https://unpkg.com/element-plus"></script>
     <link rel="stylesheet" href="style.css">
     <script src="Daily.js"></script>
-
 </head>
 <body>
     <div id="app">
@@ -97,8 +96,7 @@
                 onchange(){
                     if(this.daily != null && this.daily.length > 100){
                         let daily = new Daily(this.revenue,this.tea,this.daily);
-                        console.log(daily.get_result())
-                        this.copyToClipboard(excuse(this.revenue,this.tea,this.daily));
+                        this.copyToClipboard(daily.get_result());
                     }
                 },
                 async  copyToClipboard(text) {
