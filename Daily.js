@@ -102,8 +102,9 @@ class Daily{
         this.set_value("花茶",this.tea)
         this.set_value("今日达标率",this.format(this.info.today_target / this.amount)+"%")
         this.set_value("本周累计完成",parseFloat(this.info.weekly_total) +parseFloat(this.amount));
-        console.log((this.info.weekly_total+this.amount) / this.info.weekly_target);
-        this.set_value("本周达标率",2)
+    
+        
+        this.set_value("本周达标率",this.info.weekily_ach)
         this.set_value("本月累计完成",parseFloat(this.info.monthly_total) +parseFloat(this.amount));
         this.set_value("本月达标率",this.format((this.info.monthly_total+this.amount) / this.info.monthly_target)+"%");
         this.set_value("花茶月累计",parseFloat(this.info.tea_total) +parseFloat(this.tea));
@@ -127,6 +128,8 @@ class Daily{
             let temp_key = text.split(flag)[0].trim();
             if(temp_key == key){
                 this.daily[i] = text.split(flag)[0] + flag + value;
+                this.info = new SalesInfo(this.daily);
+                break;
             }
         }
     }
