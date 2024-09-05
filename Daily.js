@@ -39,28 +39,28 @@ class SalesInfo{
             case "日期":
                 this.date = this.get_value(text); break;
             case "今日目标":
-                this.today_target = this.get_value(text); break;
+                this.today_target = parseFloat(this.get_value(text)); break;
             case "今日达标率":
                 this.today_ach = this.get_value(text); break;
             case "明日目标":
-                this.tomorrow_target = this.get_value(text); break;
+                this.tomorrow_target = parseFloat(this.get_value(text)); break;
             case "本周目标":
-                this.weekly_target = this.get_value(text); break;
+                this.weekly_target = parseFloat(this.get_value(text)); break;
             case "本周累计完成":
-                this.weekly_total = this.get_value(text); break;
+                this.weekly_total = parseFloat(this.get_value(text)); break;
             case "本周达标率":
                 this.weekly_ach = this.get_value(text); break;
             case "本月目标":
-                this.monthly_target = this.get_value(text); break;
+                this.monthly_target = parseFloat(this.get_value(text)); break;
             case "本月累计完成":
-                this.monthly_total = this.get_value(text); break;
+                this.monthly_total = parseFloat(this.get_value(text)); break;
             case "本月达标率":
                 this.monthly_ach = this.get_value(text); break;
             case "花茶":
                 console.log(text);
                 this.tea = this.get_value(text); break;
             case "花茶月累计":
-                this.tea_total = this.get_value(text); break;
+                this.tea_total = parseFloat(this.get_value(text)); break;
         }
     }
     get_value(text){
@@ -81,8 +81,8 @@ class Daily{
     daily
     info
     constructor(amount,tea,daily){
-        this.amount = amount
-        this.tea = tea
+        this.amount = 4000
+        this.tea = 100
         this.daily = daily
         this.daily = `销售日报
         天气:—…多云🌤️…—
@@ -109,7 +109,7 @@ class Daily{
         3.补货，整理排面，拍完排面，把玩具柜子进行了整理，把方便面和饮料的网格货架子擦了，由于网格架子容易堆积毛毛，需要每天都擦一擦，明天需要把门口摆放的物品全部拿走清理，物品要好好擦一擦，地面要遁，明天需要把种类多的产品整理一下排面，盒子不好和坏掉的要及时更换。`
         this.init()
         this.handel_sales();
-
+        this.handel_diary();
     }
     init(){
         this.daily = this.daily.split('\n');
@@ -117,10 +117,26 @@ class Daily{
         console.log(this.daily);
     }
     handel_sales(){
+        this.set_value("日期",this.get_date());
         this.set_value("今日业绩",this.amount);
         this.set_value("花茶",this.tea)
         this.set_value("今日达标率",this.format(this.info.today_target / this.amount)+"%")
-        
+        this.set_value("本周累计完成",this.info.weekly_total + this.amount);
+        this.set_value("本周达标率",this.format((this.info.weekly_total+this.amount) / this.info.weekly_target)+"%");
+        this.set_value("本月累计完成",this.info.monthly_total + this.amount);
+        this.set_value("本月达标率",this.format((this.info.monthly_total+this.amount) / this.info.monthly_target)+"%");
+        this.set_value("花茶月累计",this.info.tea_total + this.tea);
+    }
+    handel_diary(){
+        for(let index = 0; index < this.daily.length; index++){
+            let text = this.daily[index];
+            if(text.includes("2.本月达标率")){
+                let month_ach = this.format((this.info.monthly_total+this.amount) / this.info.monthly_target)+"%";
+                let a = 100 - parseFloat(month_ach) + "%";
+                let avg = (this.info.monthly_target - (this.info.monthly_total+this.amount))/this.get_days();
+                this.daily[index] = "2.本月达标率"+month_ach+"，还差"+a+"没达标，接下来每天要完成："+avg+"的营业额才能达标。"
+            }
+        }
     }
     set_value(key,value){
         for(let i = 0; i < this.daily.length; i++){
