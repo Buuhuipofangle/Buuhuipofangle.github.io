@@ -84,29 +84,6 @@ class Daily{
         this.amount = amount
         this.tea = tea
         this.daily = daily
-        this.daily = `销售日报
-        天气:—…晴…—
-        日期:9/4
-        店铺:石家庄1店 胜北记忆百货
-        今日目标:4000
-        明日目标:4000
-        今日业绩:
-        今日达标率：%
-        本周目标:32000
-        本周累计完成：2253.4
-        本周达标率：%
-        本月目标:120000
-        本月累计完成:4315.9
-        本月达标率：%
-        花茶：
-        花茶月累计：2088
-        店铺日记:
-        1. 今日目标未完成
-        下午7点半左右前街上客流量少，偶尔有进店，购买率低，七点半左右后街上客流慢慢变多，零散进店，有闲逛也有购买，购买率低，九点半左右街上客流慢慢变少，偶尔有进店，进店率低，购买率低，导致业绩未完成。
-        2.本月达标率%，还差%没达标，接下来每天要完成：的营业额才能达标。
-        3.补货，整理排面，拍完排面，开始装未装完的姓氏熊，把姓氏熊进行了分类，把零食和玩具的排面进行了新的调整，如果新的位置卖不好，后期需要在调，零食位置高的地方，以后不需要垫盒子，位置偏低的可以多垫，把玩具坏的盒子进行了调换，明天需要把种类多的玩具和零食进行分类，争取把每一样都摆放出表面。
-        `
-
         this.init()
         this.handel_sales();
         this.handel_diary();
@@ -125,6 +102,7 @@ class Daily{
         this.set_value("花茶",this.tea)
         this.set_value("今日达标率",this.format(this.info.today_target / this.amount)+"%")
         this.set_value("本周累计完成",parseFloat(this.info.weekly_total) +parseFloat(this.amount));
+        console.log((this.info.weekly_total+this.amount) / this.info.weekly_target);
         this.set_value("本周达标率",this.format((this.info.weekly_total+this.amount) / this.info.weekly_target)+"%");
         this.set_value("本月累计完成",parseFloat(this.info.monthly_total) +parseFloat(this.amount));
         this.set_value("本月达标率",this.format((this.info.monthly_total+this.amount) / this.info.monthly_target)+"%");
