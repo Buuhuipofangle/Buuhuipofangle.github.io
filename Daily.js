@@ -111,11 +111,9 @@ class Daily{
         for(let index = 0; index < this.daily.length; index++){
             let text = this.daily[index];
             if(text.includes("2.本月达标率")){
-                let month_ach = this.format((this.info.monthly_total+this.amount) / this.info.monthly_target)+"%";
-                let a = 100 - parseFloat(month_ach) + "%";
-      
-                let avg = this.format_a(parseFloat(this.info.monthly_target - this.info.monthly_total - this.amount)/this.get_days());
-                this.daily[index] = "2.本月达标率"+month_ach+"，还差"+a+"没达标，接下来每天要完成："+avg+"的营业额才能达标。"
+                let a = 100 - parseFloat(this.info.monthly_ach) + "%";
+                let avg = this.format_a((this.info.monthly_target-this.info.monthly_total)/this.get_days())
+                this.daily[index] = "2.本月达标率"+this.info.month_ach+"，还差"+a+"没达标，接下来每天要完成："+avg+"的营业额才能达标。"
             }
         }
     }
