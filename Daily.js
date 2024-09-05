@@ -102,11 +102,11 @@ class Daily{
         this.set_value("今日业绩",this.amount);
         this.set_value("花茶",this.tea)
         this.set_value("今日达标率",this.format(this.info.today_target / this.amount)+"%")
-        this.set_value("本周累计完成",this.info.weekly_total + this.amount);
+        this.set_value("本周累计完成",parseFloat(this.info.weekly_total) +parseFloat(this.amount));
         this.set_value("本周达标率",this.format((this.info.weekly_total+this.amount) / this.info.weekly_target)+"%");
-        this.set_value("本月累计完成",this.info.monthly_total + this.amount);
+        this.set_value("本月累计完成",parseFloat(this.info.monthly_total) +parseFloat(this.amount));
         this.set_value("本月达标率",this.format((this.info.monthly_total+this.amount) / this.info.monthly_target)+"%");
-        this.set_value("花茶月累计",this.info.tea_total + this.tea);
+        this.set_value("花茶月累计",parseFloat(this.info.tea_total) +parseFloat(this.tea));
     }
     handel_diary(){
         for(let index = 0; index < this.daily.length; index++){
@@ -114,7 +114,7 @@ class Daily{
             if(text.includes("2.本月达标率")){
                 let month_ach = this.format((this.info.monthly_total+this.amount) / this.info.monthly_target)+"%";
                 let a = 100 - parseFloat(month_ach) + "%";
-                let avg = (this.info.monthly_target - (this.info.monthly_total+this.amount))/this.get_days();
+                let avg = this.format((this.info.monthly_target - (this.info.monthly_total+this.amount))/this.get_days());
                 this.daily[index] = "2.本月达标率"+month_ach+"，还差"+a+"没达标，接下来每天要完成："+avg+"的营业额才能达标。"
             }
         }
