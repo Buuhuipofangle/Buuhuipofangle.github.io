@@ -113,7 +113,7 @@ class Daily{
             if(text.includes("2.本月达标率")){
                 let a = 100 - parseFloat(this.info.monthly_ach) + "%";
                 let avg = this.format_a((this.info.monthly_target-this.info.monthly_total)/this.get_days())
-                this.daily[index] = "2.本月达标率"+this.info.month_ach+"，还差"+a+"没达标，接下来每天要完成："+avg+"的营业额才能达标。"
+                this.daily[index] = "2.本月达标率"+this.info.monthly_ach+"，还差"+a+"没达标，接下来每天要完成："+avg+"的营业额才能达标。"
             }
         }
     }
