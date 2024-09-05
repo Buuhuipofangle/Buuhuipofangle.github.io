@@ -1,7 +1,6 @@
 class SalesInfo{
     date
     today_target
-    today_amount
     today_ach
     tomorrow_target 
     weekly_target
@@ -12,7 +11,7 @@ class SalesInfo{
     monthly_ach
     tea 
     tea_total
-    list = ["日期","今日目标","今日业绩","今日达标率"
+    list = ["日期","今日目标","今日达标率"
     ,"明日目标","本周目标","本周累计完成","本周达标率"
     ,"本月目标","本月累计完成","本月达标率"
     ,"花茶","花茶月累计"]
@@ -41,8 +40,6 @@ class SalesInfo{
                 this.date = this.get_value(text); break;
             case "今日目标":
                 this.today_target = this.get_value(text); break;
-            case "今日业绩":
-                this.today_amount = this.get_value(text); break;
             case "今日达标率":
                 this.today_ach = this.get_value(text); break;
             case "明日目标":
@@ -79,10 +76,10 @@ class SalesInfo{
     }
 }
 class Daily{
-    amount = -1;
-    tea = -1;
-    daily = null;
-    info = null;
+    amount
+    tea
+    daily
+    info
     constructor(amount,tea,daily){
         this.amount = amount
         this.tea = tea
@@ -111,6 +108,8 @@ class Daily{
         2.本月达标率3.90%，还差96.09%没达标，接下来每天要完成：4804.57的营业额才能达标。
         3.补货，整理排面，拍完排面，把玩具柜子进行了整理，把方便面和饮料的网格货架子擦了，由于网格架子容易堆积毛毛，需要每天都擦一擦，明天需要把门口摆放的物品全部拿走清理，物品要好好擦一擦，地面要遁，明天需要把种类多的产品整理一下排面，盒子不好和坏掉的要及时更换。`
         this.init()
+        this.handel_sales();
+
     }
     init(){
         this.daily = this.daily.split('\n');
@@ -120,7 +119,8 @@ class Daily{
     handel_sales(){
         this.set_value("今日业绩",this.amount);
         this.set_value("花茶",this.tea)
-        this.set_value("今日达标率")
+        this.set_value("今日达标率",this.format(this.info.today_target / this.amount)+"%")
+        
     }
     set_value(key,value){
         for(let i = 0; i < this.daily.length; i++){
@@ -161,7 +161,7 @@ class Daily{
         const intValue = Math.trunc(value * 100);
         const decimalPart = Math.floor((value * 100) % 1 * 100);
         const result = `${intValue}.${decimalPart.toString().padStart(2, '0')}`;
-        return result + "%";
+        return result;
     }
 }
 new Daily()
