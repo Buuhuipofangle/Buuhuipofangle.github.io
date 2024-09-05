@@ -96,8 +96,6 @@
                 },
                 onchange(){
                     if(this.daily != null && this.daily.length > 100){
-                        let daily = new Daily(this.revenue,this.tea,this.daily);
-                        console.log(daily.get_result());
                         this.copyToClipboard(excuse(this.revenue,this.tea,this.daily));
                     }
                 },
