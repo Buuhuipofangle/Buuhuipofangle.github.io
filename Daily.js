@@ -47,20 +47,35 @@ class SalesInfo{
             case "本周目标":
                 this.weekly_target = parseFloat(this.get_value(text)); break;
             case "本周累计完成":
-                this.weekly_total = parseFloat(this.get_value(text)); break;
+                if(this.isWeek()){
+                    this.weekly_total = 0;
+                    break;
+                }else{
+                    this.weekly_total = parseFloat(this.get_value(text)); break;
+                }
             case "本周达标率":
                 this.weekly_ach = this.get_value(text); break;
             case "本月目标":
                 this.monthly_target = parseFloat(this.get_value(text)); break;
             case "本月累计完成":
-                this.monthly_total = parseFloat(this.get_value(text)); break;
+                if(this.isMonth()){
+                    this.monthly_total = 0;
+                    break;
+                }else{
+                    this.monthly_total = parseFloat(this.get_value(text)); break;
+                }
             case "本月达标率":
                 this.monthly_ach = this.get_value(text); break;
             case "花茶":
                 console.log(text);
                 this.tea = this.get_value(text); break;
             case "花茶月累计":
-                this.tea_total = parseFloat(this.get_value(text)); break;
+                if(this.isMonth()){
+                    this.tea_total = 0;
+                    break;
+                }else{
+                    this.tea_total = parseFloat(this.get_value(text)); break;
+                }
         }
     }
     get_value(text){
@@ -102,18 +117,21 @@ class Daily{
         this.set_value("花茶",this.tea)
         this.set_value("今日达标率",this.format(this.info.today_target / this.amount)+"%")
         this.set_value("本周累计完成",parseFloat(this.info.weekly_total) +parseFloat(this.amount));
-        this.set_value("本周达标率",this.format(this.info.weekly_total/this.info.weekly_target)+"%")
+        console.log((this.info.weekly_total+this.amount) / this.info.weekly_target);
+        this.set_value("本周达标率",this.format((this.info.weekly_total+this.amount) / this.info.weekly_target)+"%");
         this.set_value("本月累计完成",parseFloat(this.info.monthly_total) +parseFloat(this.amount));
-        this.set_value("本月达标率",this.format(this.info.monthly_total/this.info.monthly_target)+"%")
+        this.set_value("本月达标率",this.format((this.info.monthly_total+this.amount) / this.info.monthly_target)+"%");
         this.set_value("花茶月累计",parseFloat(this.info.tea_total) +parseFloat(this.tea));
     }
     handel_diary(){
         for(let index = 0; index < this.daily.length; index++){
             let text = this.daily[index];
             if(text.includes("2.本月达标率")){
-                let a = 100 - parseFloat(this.info.monthly_ach) + "%";
-                let avg = this.format_a((this.info.monthly_target-this.info.monthly_total)/this.get_days())
-                this.daily[index] = "2.本月达标率"+this.info.monthly_ach+"，还差"+a+"没达标，接下来每天要完成："+avg+"的营业额才能达标。"
+                let month_ach = this.format((this.info.monthly_total+this.amount) / this.info.monthly_target)+"%";
+                let a = 100 - parseFloat(month_ach) + "%";
+      
+                let avg = this.format_a(parseFloat(this.info.monthly_target - this.info.monthly_total - this.amount)/this.get_days());
+                this.daily[index] = "2.本月达标率"+month_ach+"，还差"+a+"没达标，接下来每天要完成："+avg+"的营业额才能达标。"
             }
         }
     }
@@ -124,8 +142,6 @@ class Daily{
             let temp_key = text.split(flag)[0].trim();
             if(temp_key == key){
                 this.daily[i] = text.split(flag)[0] + flag + value;
-                this.info = new SalesInfo(this.daily);
-                break;
             }
         }
     }
@@ -170,4 +186,7 @@ class Daily{
         return result;
     }
 }
+
+let test = new Daily(4000,241,null)
+console.log(test.get_result());
 
