@@ -89,6 +89,12 @@ class SalesInfo{
             }
         }
     }
+    isMonth(){
+        return new Date().getDate() === 1;
+    }
+    isWeek(){
+        return new Date().getDay() === 1;
+    }
 }
 class Daily{
     amount
@@ -166,12 +172,6 @@ class Daily{
         const totalDaysInMonth = getTotalDaysInMonth(currentYear, currentMonth);
         const result = totalDaysInMonth - currentDay;
         return result === 0 ? 1 : result;
-    }
-    isMonth(){
-        return new Date().getDate() === 1;
-    }
-    isWeek(){
-        return new Date().getDay() === 1;
     }
     format(value){
         const intValue = Math.trunc(value * 100);
