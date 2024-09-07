@@ -157,7 +157,7 @@ class Daily{
         return `${month}/${day}`;
     }
     get_days(){
-    
+        const hours = new Date().getHours();
         const currentDate = new Date();
         const currentMonth = currentDate.getMonth();
         const currentDay = currentDate.getDate();
@@ -166,6 +166,9 @@ class Daily{
         }
         const currentYear = currentDate.getFullYear();
         const totalDaysInMonth = getTotalDaysInMonth(currentYear, currentMonth);
+        if(hours >= 0 && hours <= 6){
+            currentDay++;
+        }
         const result = totalDaysInMonth - currentDay;
         return result === 0 ? 1 : result;
     }
