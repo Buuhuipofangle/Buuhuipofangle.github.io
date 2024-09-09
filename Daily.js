@@ -47,21 +47,13 @@ class SalesInfo{
             case "本周目标":
                 this.weekly_target = parseFloat(this.get_value(text)); break;
             case "本周累计完成":
-                if(this.isWeek()){
-                    this.weekly_total = 0;
-                }else{
-                    this.weekly_total = parseFloat(this.get_value(text)); break;
-                }
+                this.weekly_total = parseFloat(this.get_value(text)); break;
             case "本周达标率":
                 this.weekly_ach = this.get_value(text); break;
             case "本月目标":
                 this.monthly_target = parseFloat(this.get_value(text)); break;
             case "本月累计完成":
-                if(this.isMonth()){
-                    this.monthly_total = 0;
-                }else{
-                    this.monthly_total = parseFloat(this.get_value(text)); break;
-                }
+                this.monthly_total = parseFloat(this.get_value(text)); break;
             case "本月达标率":
                 this.monthly_ach = this.get_value(text); break;
             case "花茶":
@@ -86,12 +78,6 @@ class SalesInfo{
             }
         }
     }
-    isMonth(){
-        return new Date().getDate() === 1;
-    }
-    isWeek(){
-        return new Date().getDay() === 1;
-    }
 }
 class Daily{
     amount
@@ -115,6 +101,12 @@ class Daily{
         this.info = new SalesInfo(this.daily)
     }
     handel_sales(){
+        if(this.isWeek()){
+            this.set_value("本周累计完成",0);
+        }
+        if(this.isMonth()){
+            this.set_value("本月累计完成",0);
+        }
         this.set_value("日期",this.get_date());
         this.set_value("今日业绩",this.amount);
         this.set_value("花茶",this.tea)
@@ -184,29 +176,10 @@ class Daily{
         const result = `${intValue}.${decimalPart.toString().padStart(2, '0')}`;
         return result;
     }
-
+    isMonth(){
+        return new Date().getDate() === 1;
+    }
+    isWeek(){
+        return new Date().getDay() === 1;
+    }
 }
-let test = new Daily(1857.5,888,`销售日报
-天气:—…多云🌤️…—
-日期:9/5
-店铺:石家庄2店怀旧杂货铺
-今日目标:4000
-明日目标:4000
-今日业绩：1244
-今日达标率：31.10%
-本周目标:32000
-本周累计完成：4626.5
-本周达标率：14.45%
-本月目标:130000
-本月累计完成：6347.5
-本月达标率：4.88%
-花茶：222
-花茶月累计:4184
-
-
-店铺日记:
-1. 今日目标未完成
-下午6点前街上客流量少，偶尔有进店，购买率低，6点左右街上客流慢慢变多，但都零散进店，大多闲逛少有购买，购买率低，晚上10点以后街上客流慢慢变少，少有进店，购买率低，导致业绩未完成。
-2.本月达标率4.88%，还差95.12%没达标，接下来每天要完成：4946.10的营业额才能达标。
-3.补货，整理排面，拍完排面，把货少的和楼下柜子缺的都拿了一些，把玩具车区域全都一个个擦了擦，玩具车区域比较容易脏，以后需要每天都拿出来擦一擦，把特别容易脏的区域也进行了清理。`)
-console.log(test.get_result());
