@@ -97,6 +97,13 @@ class Daily{
         this.info = new SalesInfo(this.daily)
     }
     handel_sales(){
+        if(this.isWeek()){
+            this.set_value("本周累计完成",0);
+        }
+        if(this.isMonth()){
+            this.set_value("本月累计完成",0);
+            this.set_value("花茶月累计",0);
+        }
         this.set_value("日期",this.get_date());
         this.set_value("今日业绩",this.amount);
         this.set_value("花茶",this.tea)
