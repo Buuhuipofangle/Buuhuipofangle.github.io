@@ -59,12 +59,8 @@ class SalesInfo{
             case "花茶":
                 console.log(text);
                 this.tea = this.get_value(text); break;
-            case "花茶月累计":
-                if(this.isMonth()){
-                    this.tea_total = 0;
-                }else{  
-                    this.tea_total = parseFloat(this.get_value(text)); break;
-                }
+            case "花茶月累计": 
+                this.tea_total = parseFloat(this.get_value(text)); break;
         }
     }
     get_value(text){
@@ -106,6 +102,7 @@ class Daily{
         }
         if(this.isMonth()){
             this.set_value("本月累计完成",0);
+            this.set_value("花茶月累计",0)；
         }
         this.set_value("日期",this.get_date());
         this.set_value("今日业绩",this.amount);
