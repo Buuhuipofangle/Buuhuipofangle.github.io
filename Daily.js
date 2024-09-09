@@ -57,7 +57,6 @@ class SalesInfo{
             case "本月达标率":
                 this.monthly_ach = this.get_value(text); break;
             case "花茶":
-                console.log(text);
                 this.tea = this.get_value(text); break;
             case "花茶月累计": 
                 this.tea_total = parseFloat(this.get_value(text)); break;
@@ -139,6 +138,12 @@ class Daily{
     get_result(){
         return this.daily.join("\n")
     }
+    isMonth(){
+        return new Date().getDate() === 1;
+    }
+    isWeek(){
+        return new Date().getDay() === 1;
+    }
     get_date(){
         const currentDate = new Date();
         const month = currentDate.getMonth() + 1;
@@ -173,10 +178,9 @@ class Daily{
         const result = `${intValue}.${decimalPart.toString().padStart(2, '0')}`;
         return result;
     }
-    isMonth(){
-        return new Date().getDate() === 1;
-    }
-    isWeek(){
-        return new Date().getDay() === 1;
-    }
 }
+//34619194646464694919191949494949494
+//34619194646464694919191949494949494
+//34619194646464694919191949494949494
+//34619194646464694919191949494949494
+//34619194646464694919191949494949494
